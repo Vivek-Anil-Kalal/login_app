@@ -39,7 +39,7 @@ const Password = () => {
             </div>
 
             <div className="textbox flex flex-col items-center gap-3">
-              <input {...formik.getFieldProps('password')} className={styles.textbox} type="password" name="password" placeholder='Password' />
+              <input {...formik.getFieldProps('password')} className={styles.textbox} type="password" name="password" placeholder='OTP' />
               <button className={`${styles.btn} bg-green-600 drop-shadow-xl`} type="submit">Let's Go</button>
             </div>
 
