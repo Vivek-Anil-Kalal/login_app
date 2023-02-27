@@ -64,15 +64,15 @@ const Profile = () => {
 
               <div className="name flex w-3/4 gap-10">
                 <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="fName" placeholder='First Name' />
-                <input {...formik.getFieldProps('lastName')} className={styles.textbox} type="text" name="lName" placeholder='Last Name' />
+                <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="lName" placeholder='Last Name' />
               </div>
 
               <div className="name flex w-3/4 gap-10">
-                <input {...formik.getFieldProps('mobile')} className={styles.textbox} type="number" name="mobile" placeholder='Mobile No.' />
-                <input {...formik.getFieldProps('email')} className={styles.textbox} type="email" name="email" placeholder='Email*' />
+                <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="number" name="mobile" placeholder='Mobile No.' />
+                <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="email" name="email" placeholder='Email*' />
               </div>
 
-              <input {...formik.getFieldProps('address')} className={styles.textbox} type="text" name="address" placeholder='Address' />
+              <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="address" placeholder='Address' />
               <button className={`${styles.btn} drop-shadow-xl`} type="submit">Register</button>
 
             </div>
