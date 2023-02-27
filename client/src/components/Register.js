@@ -41,7 +41,7 @@ const Register = () => {
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass} style={{width : "45%" , paddingTop: "3em"}}>
           <div className="title flex flex-col items-center">
-            <h4 className="text-5xl font-bold text-white">Register</h4>
+            <h4 className="text-5xl font-bold">Register</h4>
             <span className="py-4 text-xl w-2/3 text-center text-gray-5">
               Happy to join you.
             </span>
@@ -66,7 +66,7 @@ const Register = () => {
 
             <div className="text-center py-4">
               {/* Link is better than using a (anchor tag) because anchor tag reloads the browser when the request made */}
-              <span className='text-white'>Already a User? <Link to="/" className="text-red-500">Login Now</Link></span>
+              <span>Already a User? <Link to="/" className="text-red-500">Login Now</Link></span>
             </div>
           </form>
         </div>

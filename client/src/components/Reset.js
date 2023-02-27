@@ -26,7 +26,7 @@ const Reset = () => {
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>
           <div className="title flex flex-col items-center">
-            <h4 className="text-5xl font-bold text-white">Reset Password</h4>
+            <h4 className="text-5xl font-bold">Reset Password</h4>
             <span className="py-4 text-xl w-2/3 text-center text-gray-5">
               Enter new Password
             </span>
