@@ -2,6 +2,8 @@ import nodemailer from 'nodemailer'
 import Mailgen from 'mailgen'
 import ENV from '../config.js'
 
+// Backend done now
+
 let nodeConfig = {
     host: "smtp.ethereal.email",
     port: 587,
