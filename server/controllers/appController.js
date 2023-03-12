@@ -39,13 +39,6 @@ export async function register(req, res) {
 
         // check the existing user
         const existUsername = new Promise((resolve, reject) => {
-            // UserModel.findOne({ username }, function (err, user) {
-            //     if (err) reject(new Error(err))
-            //     if (user) reject({ error: "Please use unique username" });
-
-            //     resolve();
-            // })
-
             UserModel.findOne({ username })
                 .then((foundUser) => {
                     if (foundUser) reject({ error: "Please use unique username" })
@@ -83,7 +76,7 @@ export async function register(req, res) {
 
                         // return save result as a response
                         user.save()
-                            .then(result => res.status(201).send({ msg: "User Register Successfully" }))
+                            .then(result => res.status(201).send({ msg: "You've Successfully Registered..." }))
                             .catch(error => res.status(500).send({ error }))
 
                     }).catch(error => {
@@ -152,7 +145,6 @@ export async function login(req, res) {
 /** GET: http://localhost:8080/api/user/example123 */
 export async function getUser(req, res) {
     const { username } = req.params; // params is for url value
-    console.log(username);
     try {
 
         if (!username) return res.status(501).send({ error: "Invalid User" });
@@ -247,10 +239,10 @@ export async function createResetSession(req, res) {
 // update the password when we have valid session
 /** PUT: http://localhost:8080/api/resetPassword */
 export async function resetPassword(req, res) {
-    
+
     try {
-        if( !req.app.locals.resetSession) return res.status(440).send({ error: "Session Expired!" })
-        
+        if (!req.app.locals.resetSession) return res.status(440).send({ error: "Session Expired!" })
+
         const { username, password } = req.body;
         try {
 
