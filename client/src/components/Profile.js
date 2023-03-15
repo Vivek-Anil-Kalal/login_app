@@ -1,31 +1,44 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link , useNavigate} from 'react-router-dom'
 import { profile } from '../assets'
 import styles from '../styles/Username.module.css'
-import { Toaster } from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast'
 import { useFormik } from 'formik'
 import { profileValidation } from '../helper/validate'
 import convertToBase64 from '../helper/convert'
 import extend from '../styles/Profile.module.css'
+import useFetch from '../hooks/fetch.hook'
+import { updateUser } from '../helper/helper'
+import { BallTriangle } from 'react-loader-spinner'
 
 const Profile = () => {
 
+  const navigate = useNavigate();
   const [file, setFile] = useState()
+  const [{ isLoading, apiData, serverError }] = useFetch()
 
   const formik = useFormik({
     initialValues: {
-      firstName : '' ,
-      lastName : '' ,
-      email: 'demo@gmail.com',
-      mobile: '',
-      address: ''
+      firstName: apiData?.firstName || '',
+      lastName: apiData?.lastName || '',
+      email: apiData?.email || 'demo@gmail.com',
+      mobile: apiData?.mobile || '',
+      address: apiData?.address || ''
     },
+    enableReinitialize: true,
     validate: profileValidation,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async values => {
-      values = await Object.assign(values, { profile: file || '' })
-      console.log(values);
+      values = await Object.assign(values, { profile: file || apiData?.profile || '' })
+      let updatePromise = updateUser(values);
+
+      toast.promise(updatePromise, {
+        loading: 'Updating Profile...',
+        success: <b>Profile Updated Successfully...</b>,
+        error: <b>Couldn't Update the Profile...</b>
+      })
+      // console.log(values);
     }
   })
 
@@ -36,6 +49,29 @@ const Profile = () => {
     const base64 = await convertToBase64(e.target.files[0])
     setFile(base64);
   }
+
+  // user logout handler function
+  function logoutUser(){
+    localStorage.removeItem('token')
+    navigate('/')
+  }
+
+  if (isLoading) return (
+    <div className='flex justify-center items-center h-screen'>
+
+      <BallTriangle
+        height={100}
+        width={100}
+        radius={5}
+        color="#4fa94d"
+        ariaLabel="ball-triangle-loading"
+        wrapperClass={{}}
+        wrapperStyle=""
+        visible={true}
+      />
+    </div>
+  )
+  if (serverError) return <h1 className='text-xl font-bold text-red-500'>{serverError.message}</h1>
 
   return (
     <div className="container mx-auto">
@@ -54,15 +90,15 @@ const Profile = () => {
             <div className="profile flex justify-center py-4">
 
               <label htmlFor="profile">
-                <img src={file || profile} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                <img src={apiData?.profile || file || profile} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
               </label>
               <input onChange={onUpload} type="file" name='profile' id="profile" />
 
             </div>
 
-            <div className="textbox flex flex-col items-center gap-3">
+            <div className="textbox flex flex-col items-center gap-6">
 
-              <div className="name flex w-3/4 gap-10">
+              {/* <div className="name flex w-3/4 gap-10">
                 <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="fName" placeholder='First Name' />
                 <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="lName" placeholder='Last Name' />
               </div>
@@ -73,13 +109,27 @@ const Profile = () => {
               </div>
 
               <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="address" placeholder='Address' />
-              <button className={`${styles.btn} drop-shadow-xl`} type="submit">Register</button>
+              <button className={`${styles.btn} drop-shadow-xl`} type="submit">Update</button> */}
+
+              <div className="name flex w-3/4 gap-10">
+                <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='FirstName' />
+                <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='LastName' />
+              </div>
+
+              <div className="name flex w-3/4 gap-10">
+                <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Mobile No.' />
+                <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Email*' />
+              </div>
+
+
+              <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Address' />
+              <button className={styles.btn} type='submit'>Update</button>
 
             </div>
 
             <div className="text-center py-4">
               {/* Link is better than using a (anchor tag) because anchor tag reloads the browser when the request made */}
-              <span className=''>Come Back Later? <Link to="/" className="text-red-500">Logout</Link></span>
+              <span className=''>Come Back Later? <Link to="/" onClick={logoutUser} className="text-red-500">Logout</Link></span>
             </div>
           </form>
         </div>
