@@ -1,16 +1,16 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN 
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN
 
 /** to get username from token */
-export async function getUsername(){
+export async function getUsername() {
     let token = localStorage.getItem('token')
 
-    if( !token ) return Promise.reject("Cannot find token!")
+    if (!token) return Promise.reject("Cannot find token!")
     let decode = jwt_decode(token)
     // console.log(decode);
-    return decode ;
+    return decode;
 }
 
 /** Make API Request  */
@@ -87,7 +87,7 @@ export async function generateOTP(username) {
     try {
 
         const { data: { code }, status } = await axios.get('/api/generateOTP', { params: { username } })
-
+        console.log("Here");
         // send mail with OTP
         if (status === 201) {
             // this will collect email from user
@@ -102,6 +102,21 @@ export async function generateOTP(username) {
     } catch (error) {
         return Promise.reject({ error: "Problem in Generating OTP Please Resend it.." })
     }
+
+    // try {
+    //     console.log(username);
+    //     const { data: { code }, status } = await axios.get('/api/generateOTP', { params: { username } });
+
+    //     // send mail with the OTP
+    //     if (status === 201) {
+    //         let { data: { email } } = await getUser({ username });
+    //         let text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
+    //         await axios.post('/api/registerMail', { username, userEmail: email, text, subject: "Password Recovery OTP" })
+    //     }
+    //     return Promise.resolve(code);
+    // } catch (error) {
+    //     return Promise.reject({ error });
+    // }
 }
 
 /** Verify OTP */

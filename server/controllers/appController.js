@@ -211,7 +211,8 @@ export async function generateOTP(req, res) {
 
     // specify the length of otp first then cases
     req.app.locals.OTP = await otpGenerator.generate(6, { upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false })
-    res.status(200).send({ code: req.app.locals.OTP })
+    console.log(req.app.locals.OTP);
+    res.status(201).send({ code: req.app.locals.OTP })
 }
 
 /** GET: http://localhost:8080/api/verifyOTP */
