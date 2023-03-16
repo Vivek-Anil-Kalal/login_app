@@ -13,6 +13,8 @@ const Recovery = () => {
 
   // we are calling generate otp in useEffect because this page loads it will send the OTP to the user email address
   useEffect(() => {
+
+    // first go to ethreal and then creat your testing mail and enter email and password to .env file
     generateOTP(username).then((OTP) => {
       console.log(OTP);
       if (OTP) return toast.success("OTP has been sent to your Email...")

@@ -57,7 +57,7 @@ export async function profileValidation(values) {
 
 /* validate password */
 function passwordVerify(errors = {}, values) {
-    const specialChar = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+    const specialChar = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/
 
     if (!values.password) {
         errors.password = toast.error("Passsword is Required...!")
