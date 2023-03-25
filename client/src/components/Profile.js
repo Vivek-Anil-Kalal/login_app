@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link , useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { profile } from '../assets'
 import styles from '../styles/Username.module.css'
 import { toast, Toaster } from 'react-hot-toast'
@@ -21,7 +21,7 @@ const Profile = () => {
     initialValues: {
       firstName: apiData?.firstName || '',
       lastName: apiData?.lastName || '',
-      email: apiData?.email || 'demo@gmail.com',
+      email: apiData?.email || '',
       mobile: apiData?.mobile || '',
       address: apiData?.address || ''
     },
@@ -51,7 +51,7 @@ const Profile = () => {
   }
 
   // user logout handler function
-  function logoutUser(){
+  function logoutUser() {
     localStorage.removeItem('token')
     navigate('/')
   }
@@ -98,32 +98,22 @@ const Profile = () => {
 
             <div className="textbox flex flex-col items-center gap-6">
 
-              {/* <div className="name flex w-3/4 gap-10">
-                <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="fName" placeholder='First Name' />
-                <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="lName" placeholder='Last Name' />
-              </div>
-
-              <div className="name flex w-3/4 gap-10">
-                <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="number" name="mobile" placeholder='Mobile No.' />
-                <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="email" name="email" placeholder='Email*' />
-              </div>
-
-              <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" name="address" placeholder='Address' />
-              <button className={`${styles.btn} drop-shadow-xl`} type="submit">Update</button> */}
-
-              <div className="name flex w-3/4 gap-10">
+              <div className="name flex sm:w-3/4 w-[450px] sm:ml-0 ml-[120px] sm:flex-row flex-col gap-10">
                 <input {...formik.getFieldProps('firstName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='FirstName' />
                 <input {...formik.getFieldProps('lastName')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='LastName' />
               </div>
 
-              <div className="name flex w-3/4 gap-10">
+              <div className="name flex sm:w-3/4 w-[450px] sm:ml-0 ml-[120px] sm:flex-row flex-col gap-10">
                 <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Mobile No.' />
                 <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Email*' />
               </div>
 
-
-              <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Address' />
-              <button className={styles.btn} type='submit'>Update</button>
+              <div className='w-[450px] sm:ml-0 ml-[120px]'>
+                <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox} w-[350px]`} type="text" placeholder='Address' />
+              </div>
+              <div className=' w-[450px] sm:ml-0 ml-[120px]'>
+                <button className={`${styles.btn}`} type='submit'>Update</button>
+              </div>
 
             </div>
 

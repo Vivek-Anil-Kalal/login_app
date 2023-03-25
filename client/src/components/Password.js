@@ -17,7 +17,7 @@ const Password = () => {
 
   const formik = useFormik({
     initialValues: {
-      password: 'admin@123'
+      password: ''
     },
     validate: passwordValidate,
     validateOnBlur: false,
@@ -27,7 +27,7 @@ const Password = () => {
       let loginPromise = verifyPassword({ username, password: values.password })
 
       toast.promise(loginPromise,{
-        loading : 'Creating...',
+        loading : 'Checking...',
         success : <b>Login Successfully...</b>,
         error : <b>Password not Match...</b>
       })
