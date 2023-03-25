@@ -14,8 +14,10 @@ app.use(morgan('tiny'))
 app.disable('x-powered-by') // less hackers know about our stack
 
 /** Increasing Limit for image uploading */
-app.use(bodyParser.json({ limit: '50MB' }));
-app.use(bodyParser.urlencoded({ limit: '50MB', extended: true }));
+// app.use(bodyParser.json({ limit: '50MB' }));
+// app.use(bodyParser.urlencoded({ limit: '50MB', extended: true }));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 const port = 8080;
 
