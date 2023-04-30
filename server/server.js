@@ -19,7 +19,7 @@ app.disable('x-powered-by') // less hackers know about our stack
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 /*** HTTP GET Request */
 app.get("/", (req, res) => {

@@ -5,13 +5,11 @@ import ENV from '../config.js'
 // Backend done now
 
 let nodeConfig = {
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    service: 'gmail',
     auth: {
-        user: ENV.EMAIL, // generated ethereal user
-        pass: ENV.PASSWORD, // generated ethereal password
-    },
+        user: ENV.EMAIL, // replace with your Gmail account email address
+        pass: ENV.PASSWORD // replace with your Gmail account password
+    }
 }
 
 let transporter = nodemailer.createTransport(nodeConfig);
